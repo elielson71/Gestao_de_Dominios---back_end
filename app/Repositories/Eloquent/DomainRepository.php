@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
 use App\Models\Domain;
 use App\Repositories\Contracts\DomainRepositoryInterface;
