@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateDomain;
+use App\Http\Resources\DomainResource;
 use App\Services\DomainService;
 use Illuminate\Http\Request;
 
@@ -22,18 +24,11 @@ class DomainController extends Controller
     public function index()
     {
 
-        return $this->domainService->getAllDomains();
+        $domains = $this->domainService->getAllDomains();
+
+        return DomainResource::collection($domains);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -41,9 +36,11 @@ class DomainController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateDomain $storeUpdateDomain)
     {
-        //
+        $domains = $this->domainService->createNewDomain($storeUpdateDomain->validated());
+
+        return new DomainResource($domains);
     }
 
     /**
@@ -54,18 +51,10 @@ class DomainController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $domains = $this->domainService->getDomain($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return DomainResource::collection($domains);
+
     }
 
     /**
@@ -75,9 +64,13 @@ class DomainController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdateDomain $request, $id)
     {
-        //
+        $this->domainService->updateDomain($request->validated(),$id);
+
+        return response()->json([
+            'updated' => true
+        ]);
     }
 
     /**
@@ -88,6 +81,8 @@ class DomainController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->domainService->deleteDomain($id);
+
+        return response()->json(['delete'=>true],204);
     }
 }
