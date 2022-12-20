@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Repositories\Contracts\DomainRepositoryInterface;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Eloquent\DomainRepository;
+use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -21,6 +23,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             DomainRepositoryInterface::class,
             DomainRepository::class
+        );
+        $this->app->bind(
+            UserRepositoryInterface::class,
+            UserRepository::class
         );
     }
 
