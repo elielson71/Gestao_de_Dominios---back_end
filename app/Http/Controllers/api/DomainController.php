@@ -39,7 +39,11 @@ class DomainController extends Controller
     public function store(StoreUpdateDomain $storeUpdateDomain)
     {
         $domains = $this->domainService->createNewDomain($storeUpdateDomain->validated());
-
+        if ($domains['status'] == 400) {
+            return response()->json([
+                'message' => $domains['massage']
+            ], $domains['status']);
+        }
         return new DomainResource($domains);
     }
 
@@ -53,8 +57,7 @@ class DomainController extends Controller
     {
         $domains = $this->domainService->getDomain($id);
 
-        return DomainResource::collection($domains);
-
+        return new DomainResource($domains);
     }
 
     /**
@@ -66,11 +69,17 @@ class DomainController extends Controller
      */
     public function update(StoreUpdateDomain $request, $id)
     {
-        $this->domainService->updateDomain($request->validated(),$id);
-
+        $domains = $this->domainService->updateDomain($request->validated(), $id);
+        if (is_array($domains)) {
+            if ($domains['status'] == 400) {
+                return response()->json([
+                    'message' => $domains['massage']
+                ], $domains['status']);
+            }
+        }
         return response()->json([
             'updated' => true
-        ]);
+        ], 204);
     }
 
     /**
@@ -83,6 +92,6 @@ class DomainController extends Controller
     {
         $this->domainService->deleteDomain($id);
 
-        return response()->json(['delete'=>true],204);
+        return response()->json(['delete' => true], 204);
     }
 }

@@ -24,14 +24,27 @@ class DomainRepository implements DomainRepositoryInterface
     {
         return $this->entity->findOrFail($id);
     }
+    public function getDomainByName(string $name)
+    {
+        return $this->entity->where('name', $name);
+    }
 
     public function createDomain(array $data)
     {
+        if ($this->nameDomainExists($data['name'])) {
+            return ['massage' => 'Dominio já cadastrado', 'status' => 400];
+        }
         return $this->entity->create($data);
     }
 
+
     public function updateDomain(array $data, int $id)
     {
+        if ($this->nameDomainExists($data['name'])) {
+            if (!$this->idNameDomainExits($id, $data['name'])) {
+                return ['massage' => 'Dominio já cadastrado', 'status' => 400];
+            }
+        }
         $domain = $this->getDomainById($id);
         return $domain->update($data);
     }
@@ -40,5 +53,17 @@ class DomainRepository implements DomainRepositoryInterface
     {
         $domain = $this->getDomainById($id);
         return $domain->delete();
+    }
+
+    public function idNameDomainExits(int $id, string $name)
+    {
+        return $this->entity
+            ->where('id', $id)
+            ->where('name', $name)->exists();
+    }
+
+    public function nameDomainExists(string $name)
+    {
+        return $this->getDomainByName($name)->exists();
     }
 }
