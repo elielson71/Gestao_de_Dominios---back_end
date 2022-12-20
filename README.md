@@ -13,9 +13,9 @@ Sistema Back-End do projeto de gereciamento de domínios, api com laravel, Mysql
  2.  Precisa instalar o laravel 9 ou superior
  3.  Recomendado instalar o composer na versão 2.2.18 ou superios
  ### Passo a Passo
- 2.  Faça o Clone do projeto na sua maquina
- 3.  Execute `composer install`
- 4.  Crie um banco de dados 
- 5.  Rode Migrate com artisan para criar as tabelas - `php artisan make:migration`
- 6.  Para rodar o sistema pode utilizar um servidor Xampp, Wampp ou utilizar o artisan 
+ 1.  Faça o Clone do projeto na sua maquina
+ 2.  Execute `composer install`
+ 3.  Crie um banco de dados 
+ 4.  Rode Migrate com artisan para criar as tabelas - `php artisan make:migration`
+ 5.  Para rodar o sistema pode utilizar um servidor Xampp, Wampp ou utilizar o artisan 
 
