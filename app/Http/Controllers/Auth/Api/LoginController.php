@@ -19,7 +19,7 @@ class LoginController extends Controller
         return response()
             ->json(['data' => [
                 'token' => $token->plainTextToken
-            ]]);
+            ]],200);
     }
 
     public function logout(Request $request)
