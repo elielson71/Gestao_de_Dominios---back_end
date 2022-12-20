@@ -6,7 +6,7 @@ Sistema Back-End do projeto de gereciamento de domínios, api com laravel, Mysql
 * php 8
 * Framework Laravel 9
 * SGBD Mysql
-* Padrão de projeto Repositories, Services
+* Padrão de projeto MVC,Repositories, Services
     
 ## 💻Para utilização do Projeto
  1.  Precisa utilizar php 8 ou superior
