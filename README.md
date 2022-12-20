@@ -5,6 +5,7 @@ Sistema Back-End do projeto de gereciamento de domínios, api com laravel, Mysql
 ## 🚀 Tecnologia utilizada
 * php 8
 * Framework Laravel 9
+* Laravel Sanctum 
 * SGBD Mysql
 * Padrão de projeto MVC,Repositories, Services
     
